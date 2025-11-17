@@ -198,12 +198,12 @@ The user can only be allowd to pass one of the value from `enum` array.
 ## Schema Validation for Existing Collection
 
 ```bash
-db.runCommand(
+db.runCommand({
     collMod: name_of_existing_collection,
     validator: {
         $jsonSchema: {}
     }
-)
+})
 ```
 
 Yaha `collMod` stand for Collection Modify bs yahi aik niya filed hey baki validator k ander sabh kuxh wesa hi rahey ga jesa aik new collection kelye thaa.
@@ -230,5 +230,43 @@ db.runCommand(
     }
 )
 ```
+
+### Schema validation for Array?
+
+```mongodb
+hobbies: {
+    bsonType: "array",
+    items: {
+        bsonType: "string",
+        description: "Item in hobbies array are must be string"
+    },
+   description: "hobbies must be of type arrray!"
+}
+```
+
+## Schema validation for Object
+
+```mongodb
+address: {
+    bsonType: "object",
+    required: ["street", "city", "zipCode"]
+    properties: {
+        street: {
+            bsonType: "string",
+            description: "The value of street must be of string type"
+        },
+       city: {...},
+       zipCode: {...}
+    }
+}
+```
+
+
+
+
+
+
+
+
 
 
