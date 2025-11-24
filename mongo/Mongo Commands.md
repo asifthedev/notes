@@ -699,3 +699,191 @@ db.students.find({$logicalOperator: [{condition}, {condition},...]})
 ```
 
 Yaha dot ka mtlb hey k isi tarah app multiple conditions ko bhi pass kar saktey hey
+
+### $and
+
+A document on which we trying to perfrom an operation will only pass the filter if all of the given conditions are satisfied otherwise not.
+
+For example in example given below, the find() operation will on show a document in which the roll number is 2 and major is CS.
+
+```mongodb
+db.students.find( {$and: [{rollNo: {$gt: 2}}, {major: {$eq: "CS"}]} )
+```
+
+### $or
+
+A documetn pass the or operator filter if any of the condition among all the given conditions is true, yani ager aik bhi condition match kar gayi tey kam hogiya.
+
+```mongodb
+db.students.find($or: [{major: {$eq: "CS"}}, {major: {$eq: "AI"}}])
+```
+
+## $regex
+
+It used to search for string pattern using regular expressions in the value of a field.
+
+**Syntax**
+
+```mongodb
+db.students.find({field: {$regex: /pattern/flags})
+```
+
+**Example:**
+
+```mongodb
+db.students.find({name: {$regex: /^As/i}})
+```
+
+Un students ko dhikao jinka name `As` start ho raha hey, or `i` flag ka mtlb hey incesntive chahey woh small letter mey hi `as` qn na ho. 
+
+### $expr
+
+Yeah aik hi document k do field ko apas mey compare karney kelye use hota hey.
+
+```mongodb
+db.expenditures.find({$expr: {$gt: ["spent", "budget"]}})
+```
+
+### $mod
+
+Yeah apke field ki har value ko devide karta hey apki given value say or phir ager remainder woh ata hey jo app ney dey rakha hey to yeah esay record show karta hey
+
+```mongodb
+db.expenditures.find({cost: {$mod: [2, 0]}})
+```
+
+Ager cost filed ki value ko devide kia jaye 2 say or remainder mey zero a jaye to esay document ko wapi return karo.
+
+### findOneAndUpdate()
+
+Kaam yeah bhi `updateOne()` ki tarah karta hey per ismay or updateOne mey kuxh differences hey first difference is in output.
+
+Jab app `updateOne()` ki help say kuxh update kartey heyn to kuxh esa answer ata hey. 
+
+```bash
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+```
+
+But when you update a document using `findAndUpdateOne()` it return the same documetn back on which you are performing the update operation.
+
+```mongodb
+db.products.findOneAndUpdate({sku: "HDR-010"}, {$set: {name: "Asif"}})
+```
+
+If we run the code snippet given above it return back the object itself before updating the object, you can also view an object after updation py passing the third argument of `findOneAndUpdate()`
+
+```mongodb
+{
+  _id: ObjectId('6922708d2a07b7ec0963b123'),
+  sku: 'HDR-010',
+  name: 'Asif Shahzad',
+  category: 'Audio',
+  price: 349.99,
+  description: 'Noise-cancelling wireless headphones',
+  tags: [ 'headphones', 'sony', 'audio' ]
+}
+```
+
+#### **Options**
+
+The third object is option object which let you specify more options about `findOneAndReplace()`.
+
+```mongodb
+db.products.findOneAndReplace(<search query>, <dataToUpdate>, <options>)
+```
+
+**returnDocument**
+
+Document update k baad (after) ya phir update k pehlay (before) return hona chayee.
+
+```mongodb
+db.products.findOneAndReplace(
+    {sku: "HDR-010"},
+    {$set: {name: "Asif"}},
+    {returnDocument: "after"}
+)
+```
+
+**projection**
+
+It let you specify kon kon say field najar ayen or kon kon say na najar ayen
+
+```mongodb
+db.products.findOneAndReplace(
+    {sku: "HDR-010"},
+    {$set: {name: "Asif"}},
+    {
+        returnDocument: "after", // show document after updation
+        projection: {name: 1, sku: 1} // on display name and sku
+    }
+)
+```
+
+**sort**
+
+Let say k app k pass 2 students hey  dono hi ka name same hey or app us studnet ka grade A set karna chahtey jiskay marks sab say ziyada heyn.
+
+Sort will help you, first sort the documents based on a field value in our case the marks field and then who ever satisfying the filter first usko usko update kar do
+
+```json
+{_id: 1, name: "Ahmad", marks: 85}
+{_id: 2, name: "Ahmad", marks 90}
+```
+
+Now let's write our update query.
+
+```mongodb
+db.students.findOneAndUpdate(
+    {name: "Ahmad"},
+    {$set: {grade: "A"}},
+    {
+        returnDocument: "after",
+        projection: {name: 1, grade: 1, _id: 0},
+        sort: {marks: -1} // decending order mey,
+    }
+)
+```
+
+The output of the above code is...
+
+```mongodb
+{ _id: 2, name: 'Ahmad', marks: 90, grade: 'A' }
+```
+
+**upsert**
+
+upset ka mtlb hey ager record na milay search query jo app ney pass kar rakhi hey to is record ko insert as new record insert kardo
+
+```mongodb
+db.students.findOneAndUpdate(
+    {name: "Asif"}, 
+    {$set: {_id: 3, name: "Asif", marks: 85}},
+    {upsert: true, returnDocument: "after"}
+)
+```
+
+## findOneAndReplace()
+
+Yeah existing doucment ko find karta hey or usay new document k sath replace kardeyga.
+
+```mongodb
+db.students.findOneAndReplace(
+    {name: "Asif"},
+    {_id: 3, name: "John Elia", marks: 67},
+    {returnDocument: "after"}
+)
+```
+
+## findOneAndDelete()
+
+It will find a delete a document and return the deleted document back. It supports two options `{sort: -1/1, projection: {...}`
+
+```mongodb
+db.students.
+```
