@@ -885,5 +885,10 @@ db.students.findOneAndReplace(
 It will find a delete a document and return the deleted document back. It supports two options `{sort: -1/1, projection: {...}`
 
 ```mongodb
-db.students.
+db.students.findOneAndDelete(
+    {name: "John Elia"},
+    {projection: {_id: 1, name: 1}}
+)
 ```
+
+It will delete the document where the student name is John Elia and only projects the `_id` and `name` field after deletion. To have vague idea about `sort` look at sort in `findOneAndUpdate()` section.
