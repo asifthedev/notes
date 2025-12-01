@@ -107,3 +107,58 @@ db.students.updateOne(
 ```
 
 **Note:** ager new value already array mey exist karti bhi hey $push tab bhi add kar deyga
+
+## $each
+
+It's has been used with the combination of $push to insert multiple values in an array
+
+```mongodb
+db.students.updateOne(
+    {name: "Asif"},
+    {$push: {courses: {$each: ["A", "B"]}}}
+)
+```
+
+It will insert both A and B into courses array.
+
+## $addToSet
+
+Only add in new value in an array if it's not already there inside arrray.
+
+```mongodb
+db.students.updateOne(
+    {rollNumber: "bsf2105505"},
+    {$addToSet: {courses: "Cyber Security"}}
+)
+```
+
+## $pop
+
+It's used to remove an element form the beginning or end of the an array.
+
+```mongodb
+db.students.updateOne(
+    {rollNumber: "bsf2105505"},
+    {$pop: {courses: 1}})
+```
+
+Ager ham aik field jis ki type array hey us k agery 1 pass karey gey with `$pop` operator to yeah us array k end say aik value remove kar deyga
+
+But ager ham -1 pass karey gey to yeah start say remove karey ga.
+
+## $pull
+
+`$pull`removes all instances of a specified value from an array field. `$pull` targets elements by their actual value, removing every occurrence that matches.
+
+For example hamray pass yeah aik student hey:
+
+```mongodb
+db.students.updateOne(
+    {rollNumber: "bsf2205509"},
+    {$pull: {courses: "Linear Algebra"}}
+)
+```
+
+Jis student ka roll number `bsf2205509` hey uskay courses waley array field me say `Linear Algebra` wali value ko remove kardo.
+
+Ager yeah value multiple time bhi hey to sari occurrences ko remove kardo.

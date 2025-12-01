@@ -410,58 +410,7 @@ db.students.updateOne(
 )
 ```
 
-Ager hamari di hoee age 22 bari hey student ki existing age say to hamri di hoee value 22 ko new age ki value k tor per set kardo.
-
-## $push
-
-Push is used to add a new value in an array, yani jis field ki type array hogi to us array k ander ager mujeh koee new value add karni hey to mey `$push` ka use karunga.
-
-```mongodb
-db.students.updateOne(
-    {rollNumber: "bsf2105505"},
-    {$push: {courses: "Human Resources"}}
-)
-```
-
-**Note:** ager new value already array mey exist karti bhi hey $push tab bhi add kar deyga
-
-## $each
-
-It's has been used with the combination of $push to insert multiple values in an array
-
-```mongodb
-db.students.updateOne(
-    {name: "Asif"},
-    {$push: {courses: {$each: ["A", "B"]}}}
-)
-```
-
-It will insert both A and B into courses array.
-
-## $addToSet
-
-Only add in new value in an array if it's not already there inside arrray.
-
-```mongodb
-db.students.updateOne(
-    {rollNumber: "bsf2105505"},
-    {$addToSet: {courses: "Cyber Security"}}
-)
-```
-
-## $pop
-
-It's used to remove an element form the beginning or end of the an array.
-
-```mongodb
-db.students.updateOne(
-    {rollNumber: "bsf2105505"},
-    {$pop: {courses: 1}})
-```
-
-Ager ham aik field jis ki type array hey us k agery $1$ pass karey gey with `$pop` operator to yeah us array k end say aik value remove kar deyga
-
-But ager ham $-1$ pass karey gey to yeah start say remove karey ga.
+Ager hamari di hoee age 22 bari hey student ki existing age say to hamri di hoee value 22 ko new age ki value k tor per set kardo. 
 
 ## $pull
 
@@ -622,9 +571,7 @@ Pehlay 10 skip kardo uskay baad jitnay documents bach rahey heyn, unmay say 10 h
 
 ## Comparison Operators
 
-Chahey `deleteMany()` , `find()` ho ya phir `updateMany()` ho filter to hamey deyna hi parhta hey. Usi filter ko mazeed granular or precise bananey kelye ham comparison operator use kartey hey,
-
-Yeah mostly numeric fileds k uper use hotey heyn and used to compare bara hey chota hey equal hey ya nahi equal hey etc.
+Chahey `deleteMany()` , `find()` ho ya phir `updateMany()` ho filter to hamey deyna hi parhta hey. Usi filter ko mazeed granular or precise bananey kelye ham comparison operator use kartey hey,mongosh "mongodb+srv://cluster0.5tzo5qf.mongodb.net/" --apiVersion 1 --username mrasifshahzad22ey chota hey equal hey ya nahi equal hey etc.
 
 ### $eq
 
