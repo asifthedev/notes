@@ -34,6 +34,22 @@ The code snippet given above will output `{ok: 1}` that mean database has been c
 db.createCollection("books")
 ```
 
+The `createCollection()` method has a second argument called options object where you can pass multiple options to configure the behavior of collection.
+
+### Caped Collection
+
+A **capped collection** is a special type of collection in MongoDB that has a fixed size limit. Once it reaches its maximum size, it automatically overwrites the oldest documents with new ones.
+
+```mongodb
+db.createCollection("logs", {
+  capped: true,
+  size: 104857600,  // 100MB in bytes
+  max: 5000         // Optional: limit to 5000 documents
+})
+```
+
+If a capped collection reached to it's maximum size it start deleteing the document from the top and start appending new documents in the bottom (FIFO).
+
 ## Show Collections
 
 ```mongodb
@@ -161,7 +177,7 @@ Har property name as key use hota hey jiskay against aik object hota hey jismey 
 age: {
     bsonType: "int",
     minimum: 5,
-    maximum: 20
+    maximum: 20,
     description: "The message"
 }
 ```
@@ -398,7 +414,7 @@ Ager hamari di hoee age 22 bari hey student ki existing age say to hamri di hoee
 
 ## $push
 
-Push is used to add a new value in an array, yani jis field ki type array hogi to us array k ander age mujeh koee new value add karni hey to mey `$push` ka use karunga.
+Push is used to add a new value in an array, yani jis field ki type array hogi to us array k ander ager mujeh koee new value add karni hey to mey `$push` ka use karunga.
 
 ```mongodb
 db.students.updateOne(

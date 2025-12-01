@@ -6,7 +6,7 @@ Yeah aik NoSQL aur non-ralational database hey, jo data ko aik JSON formate mey 
 
 **No-SQL** yani ismey data tabular form mey store nahi hota or koee fixed schema bhi nahi hota jis traha aik SQL database mey hota hey.
 
-**Non Relational** yani ismey foreign key jesa koee concept nahi, but ham manually linke kar saktey data ko.
+**Non Relational** yani ismey foreign key jesa koee concept nahi, but ham manually linke kar saktey data ko, but yea enforce nahi karta
 
 ## Collections
 
@@ -14,7 +14,7 @@ Jesay SQL database mey table hotey jinmey ham records ko store kartey heyn wesay
 
 ## Documents
 
-Collection k ander har JSON entery ko ham document kehtay heyn.
+Collection k ander har JSON entery ko ham document kehtay heyn. Aik documetn aik json ki taraha ka tarah ka object hota hey jismey ham key value paris mey data store kartey heyn
 
 ## BSON
 
@@ -76,4 +76,4 @@ test>
 
 By default test dabase select hota hey.
 
-# 
+ 

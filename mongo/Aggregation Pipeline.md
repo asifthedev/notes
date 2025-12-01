@@ -216,7 +216,7 @@ db.students.aggregate([
 ])
 ```
 
-Uper wala code run honey per har type k depart k under kitnay students unka count show karey ga
+Uper wala code run honey per har type k depart k under kitnay students unka count show karey ga.
 
 ```mongodb
 [
@@ -226,7 +226,7 @@ Uper wala code run honey per har type k depart k under kitnay students unka coun
 ]
 ```
 
-### $push operator in $group
+### $push operator in \$group
 
 Let say app ko un students ko dehkna hey jo aik group k ander bajaye iskay k app unka count dehko app pora document hi dehkna chahta ho but aik same type k group mey
 
@@ -336,7 +336,7 @@ db.students.aggregate([{
 
 ### $top
 
-Ham ney firs mey dehka k na to ham usmey yeah bata saktey hey k kon, kon say field show honey chaye or konsay nahi or na hi sort kar saktey but `$top` yeah saray features offer karta hey.
+Ham ney first mey dehka k na to ham usmey yeah bata saktey hey k kon, kon say field show honey chaye or konsay nahi or na hi sort kar saktey but `$top` yeah saray features offer karta hey.
 
 ```mongodb
 db.students.aggregate([
@@ -353,3 +353,54 @@ db.students.aggregate([
   }
 ]);
 ```
+
+### $topN
+
+The `$top` function only show the first document but if yo want to specify the number of documents you want from the top you can use `$topN` where n mean the number you want from the top.
+
+```mongodb
+db.students.aggregate([
+  {
+    $group: {
+      _id: "$department",
+      top_std: {
+        $topN: {
+          output: { name: "$name", gpa: "$gpa" },
+          sortBy: { gpa: -1 },
+          n: 2
+        }
+      }
+    }
+  }
+])
+```
+
+### $bottom
+
+Yeah top k opposit kaam karta hey syntax same hey top ki traha per yeah bottom say aik record ko show karta.
+
+```mongodb
+db.students.aggregate([
+  {
+    $group: {
+      _id: "$department",
+      bottom_std: {
+        $bottom: {
+          sortBy: { gpa: -1 },
+          output: { name: "$name", gpa: "$gpa" }
+        }
+      }
+    }
+  }
+])
+```
+
+**Explanation:**
+→ sorts students by GPA descending.
+→ picks the last document after sorting (lowest GPA in this case).
+→ specifies which fields to return.
+This will give you the student with the lowest GPA per department
+
+### $bottomN
+
+The \$bottom will only return back only one document from the bottom for each group but `$bottomN` will give you back N number of documents. For more detail read `$topN`
