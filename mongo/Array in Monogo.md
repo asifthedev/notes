@@ -150,15 +150,20 @@ But ager ham -1 pass karey gey to yeah start say remove karey ga.
 
 `$pull`removes all instances of a specified value from an array field. `$pull` targets elements by their actual value, removing every occurrence that matches.
 
-For example hamray pass yeah aik student hey:
+For example hamray pass yeah aik student hey or ham `react` name ki skill ko remove kar chahatey heyn:
 
 ```mongodb
-db.students.updateOne(
-    {rollNumber: "bsf2205509"},
-    {$pull: {courses: "Linear Algebra"}}
-)
+{
+  _id: 4,
+  name: 'David',
+  skills: ['nodejs', 'react', 'react', 'nodejs'],
+}
 ```
 
-Jis student ka roll number `bsf2205509` hey uskay courses waley array field me say `Linear Algebra` wali value ko remove kardo.
+To remove all occurences of `react` you can run:
+
+```mongodb
+db.students.update({_id: 4}, {$pull: {skills: "react"}})
+```
 
 Ager yeah value multiple time bhi hey to sari occurrences ko remove kardo.
