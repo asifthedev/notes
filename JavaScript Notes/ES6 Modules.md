@@ -16,7 +16,7 @@ Ismey ham specifically export honey waley variable, object, ya function k exact 
 
 ```js
 let user = {name: 'asif', age: 23}
-export {use}
+export {user}
 ```
 
 **Multiple named exports**
