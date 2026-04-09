@@ -1,9 +1,10 @@
 ## Global Space
 
 **Node JS**
-In node in global space this refers to the `module.exports` object and it's empty by default. If `this` and `module.exports` are same object then assigning value to one of them will reflects in both  as they are the same objects.
+In a node in global space, this refers to the `module.exports` object, and it's empty by default. If `this` and `module.exports` are the same object, then assigning a value to one of them will reflect in both, as they are the same objects.
 
 **Test Case in Node**
+
 ```js
 this.name = "Asif";
 module.exports.age = 32;
@@ -11,15 +12,16 @@ console.log(module.exports) // {name: "Asif", age: 32}
 ```
 
 **Browser**
-In browser  `this` refers to global object which is window object. If you type this in browser's console you will have windows object as an output.
+In the browser, `this` refers to the global object, which is the window object. If you type this in the browser's console, you will have windows object as an output.
+
 ```js
 > this
-> Window {0: Window, window: Window, self: Window, document: document, name: '', location: Location, …}
+> Window {0: Window, window: Window, …}
 ```
 
 ## Function Level
 
-The value of the `this` inside regular function is undefined in strict mode. But in non strict mode due to the this substitution mechanism of JavaScript (whenever the value of this is equal to undefined or null it will be replaced with global object) `this keyword` refers to the global/window object.
+The value of the `this` inside a regular function is undefined in strict mode. But in non-strict mode, due to this substitution mechanism of JavaScript (whenever the value of this is equal to undefined or null, it will be replaced with the global object) `this keyword` refers to the global/window object.
 
 **Non Strict Mode**
 In regular function in non *strict mode* this refers to **global object** in node and **window** object in browser.
@@ -43,6 +45,7 @@ function fx() {
 ## this And Object
 
 In general it said that `this` refers to the current object calling the function. 
+
 ```js
 function fx() {
   console.log(this);
@@ -51,6 +54,7 @@ window.fx(); // this -> window object
 ```
 
 If a function is defined inside an object as a method then `this` refers to current object calling the function.
+
 ```js
 let user = {
   name: "Asif",
@@ -85,6 +89,7 @@ Arrow functions don't have their own `this` binding or they don't provide this i
 ```js
 let name = "Asif"
 ```
+
 The lexical scop is global because the variable is defined in the global space.
 
 ```js
@@ -96,6 +101,7 @@ function greet(){
 Now the lexical scop for variable name is `greet()` because it's defined inside it.
 
 ### Object Littrell is Not a Scop
+
 It’s possible that you might get confused by the curly brackets in an object literal and think they create a scope — but let me tell you, they do not. An object is just a container for properties, not a scope.
 
 ```js
@@ -109,6 +115,7 @@ let obj = {name: "Asif"}
 3. **Module Scope** – in ES6 modules (each module has its own top-level scope)
 
 Now we've learned everything required to understand `this` inside arrow function let's see the first code example:
+
 ```js
 let obj = {
   name: "Asif",
@@ -156,7 +163,3 @@ As we know the value of this in arrow function is comes from it's lexical contex
   </body>
 </html>
 ```
-
-Output as I clicked on button: 
-
-![[Pasted image 20250705182036.png]]
